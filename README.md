@@ -41,9 +41,17 @@ docker-compose exec app php artisan migrate
 docker-compose exec app php artisan db:seed
 ```
 
-## Acessando pela primeira vez
-Você poderá acessar através do link [https://localhost/login](https://localhost/login)
+## Testes e acesso
+Após a migração será criado um usuário principal padrão:
 
 Usuário _admin@admin.com_
 
 Senha _admin_
+
+## Documentação de EndPoints e Testes
+
+Usar a documentação [Swagger](https://app.swaggerhub.com/apis-docs/viniciusbrasil82/OTO/1.0.0)
+```
+https://app.swaggerhub.com/apis-docs/viniciusbrasil82/OTO/1.0.0
+```
+Garantir que esteja selecionado o servidor local [http://localhost/api/v1](http://localhost/api/v1) e que o container Docker esteja sendo executado. 

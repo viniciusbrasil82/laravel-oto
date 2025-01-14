@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +16,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/register',[AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/project', function () {
+        return 'Projects Fetch Successfully!';
+    });
+});
+
+
+
+Route::middleware('auth:api')->prefix('v1')->group(function () {
+    Route::resource('users',App\Http\Controllers\UserController::class)->only(['index','store','show','update','destroy']);
+    //Route::resource('products',App\Http\Controllers\ProductController::class)->only(['index','store','show','update','destroy']);
+
+    Route::controller(App\Http\Controllers\ProductController::class)->group(function () {
+        Route::get('/products/{id}', 'show');
+        Route::post('/products', 'create');
+        Route::put('/products', 'store');
+        Route::delete('/products/{id}', 'destroy');
+        
+    }); 
+    Route::controller(App\Http\Controllers\OrderController::class)->group(function () {
+        Route::get('/orders', 'index');
+        Route::get('/orders/{id}', 'show');
+        Route::patch('/orders/{id}/status', 'updtstatus');
+        Route::post('/orders', 'create');
+    });     
 });
 /*
-Route::get('/user', function (Request $request) {
-    return $request->user();
-});*/
+Route::controller(App\Http\Controllers\OrderController::class)->prefix('v1')->group(function () {
+    Route::get('/orders', 'index');
+    Route::get('/orders/{id}', 'show');
+    Route::patch('/orders/{id}/status', 'updtstatus');
+    Route::post('/orders', 'create');
+});  */
 
-Route::get('/clientes/listar', 'App\Http\Controllers\ClienteController@listar');
-Route::resource('cliente',App\Http\Controllers\ClienteController::class)->only(['index','store','show','update','destroy']);
 
-Route::get('/cobrancas/listar', 'App\Http\Controllers\CobrancaController@listar');
-Route::resource('cobranca',App\Http\Controllers\CobrancaController::class)->only(['index','store','show','update','destroy']);
 
 

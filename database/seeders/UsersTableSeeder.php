@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,19 +14,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('users')->insert([
+        User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('admin'),
-            'remember_token' => Str::random(10),
+            'password' => bcrypt('admin'),
+
         ]);
-        \DB::table('users')->insert([
+        User::create([
             'name' => 'user',
             'email' => 'user@email.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('user'),
-            'remember_token' => Str::random(10),
+            'password' => bcrypt('user'),
+
         ]);
     }
 }

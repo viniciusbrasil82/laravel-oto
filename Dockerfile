@@ -42,16 +42,16 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 #NPM
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - 
-    RUN apt-get install -y nodejs
+#RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - 
+#    RUN apt-get install -y nodejs
     
-RUN npm install vue@latest vue-loader@latest   
-RUN npm i @vitejs/plugin-vue 
-RUN npm install
-RUN npm install vue-router
-RUN npm install vue-axios --save 
-RUN npm install vuex --save
-RUN npm i vuex-persistedstate    
+#RUN npm install vue@latest vue-loader@latest   
+#RUN npm i @vitejs/plugin-vue 
+#RUN npm install
+#RUN npm install vue-router
+#RUN npm install vue-axios --save 
+#RUN npm install vuex --save
+#RUN npm i vuex-persistedstate    
     
 # Copy existing application directory contents
 COPY . /var/www
